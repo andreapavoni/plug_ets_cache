@@ -5,6 +5,7 @@ defmodule PhoenixEtsCache.Store do
 
   def set(%Plug.Conn{} = conn, type, value) when is_binary(value) do
     ConCache.put(db_name(), key(conn), %{type: type, value: value})
+    conn
   end
 
   defp key(conn) do
