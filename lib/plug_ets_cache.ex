@@ -1,6 +1,6 @@
 defmodule PlugEtsCache do
   @moduledoc """
-  Documentation for PlugEtsCache.
+  Implements an ETS based cache storage for Plug based applications.
   """
 
   use Application

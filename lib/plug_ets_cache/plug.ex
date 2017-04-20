@@ -1,4 +1,14 @@
 defmodule PlugEtsCache.Plug do
+  @moduledoc """
+  A Plug used to send cached responses if any.
+
+  Example usage:
+      defmodule MyApp.Router do
+        # use/import modules depending on your framework/lib
+        plug PlugEtsCache.Plug
+      end
+  """
+
   alias PlugEtsCache.Store
   use Plug.Builder
 
