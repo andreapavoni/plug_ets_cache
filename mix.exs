@@ -9,7 +9,8 @@ defmodule PlugEtsCache.Mixfile do
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps(),
-
+      package: package(),
+      description: description(),
       # Docs
       name: "PlugEtsCache",
       source_url: "https://github.com/andreapavoni/plug_ets_cache",
@@ -32,5 +33,21 @@ defmodule PlugEtsCache.Mixfile do
       {:con_cache, "~> 0.12.0"},
       {:ex_doc, "~> 0.14", only: :dev, runtime: false}
     ]
+  end
+
+  defp package do
+    [
+      name: :plug_ets_cache,
+      files: ["lib", "mix.exs", "README.md", "LICENSE"],
+      maintainers: ["Andrea Pavoni"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/andreapavoni/plug_ets_cache"}
+    ]
+  end
+
+  defp description do
+    """
+    A simple caching system based on Plug and ETS.
+    """
   end
 end
