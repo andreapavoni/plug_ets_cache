@@ -106,6 +106,6 @@ Use the [issue tracker](https://github.com/andreapavoni/plug_ets_cache/issues) f
 
 Please, do your best to follow the [Elixir's Code of Conduct](https://github.com/elixir-lang/elixir/blob/master/CODE_OF_CONDUCT.md).
 
-## License
+## License
 
 Plug source code is released under MIT License. Check [LICENSE](https://github.com/andreapavoni/plug_ets_cache/blob/master/LICENSE) file for more information.
