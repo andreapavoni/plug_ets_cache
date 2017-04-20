@@ -1,4 +1,4 @@
-defmodule PhoenixEtsCache.Store do
+defmodule PlugEtsCache.Store do
   def get(%Plug.Conn{} = conn) do
     ConCache.get(db_name(), key(conn))
   end
@@ -13,6 +13,6 @@ defmodule PhoenixEtsCache.Store do
   end
 
   defp db_name do
-    Application.get_env(:phoenix_ets_cache, :db_name, :ets_cache)
+    Application.get_env(:plug_ets_cache, :db_name, :ets_cache)
   end
 end

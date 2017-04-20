@@ -1,8 +1,8 @@
-defmodule PhoenixEtsCache.Mixfile do
+defmodule PlugEtsCache.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :phoenix_ets_cache,
+    [app: :plug_ets_cache,
      version: "0.1.0",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
@@ -12,7 +12,7 @@ defmodule PhoenixEtsCache.Mixfile do
 
   def application do
     [extra_applications: [:logger],
-     mod: {PhoenixEtsCache, []}]
+     mod: {PlugEtsCache, []}]
   end
 
   defp deps do

@@ -1,13 +1,13 @@
-defmodule PhoenixEtsCache.PlugTest do
+defmodule PlugEtsCache.PlugTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
   test "replies with cached content if present" do
     request = %Plug.Conn{request_path: "/test", query_string: ""}
-    PhoenixEtsCache.Store.set(request, "text/plain", "Hello cache")
+    PlugEtsCache.Store.set(request, "text/plain", "Hello cache")
 
     conn = conn(:get, "/test")
-    |> PhoenixEtsCache.Plug.call(PhoenixEtsCache.Plug.init(nil))
+    |> PlugEtsCache.Plug.call(PlugEtsCache.Plug.init(nil))
 
     assert conn.resp_body == "Hello cache"
     assert {"content-type", "text/plain; charset=utf-8"} in conn.resp_headers
@@ -17,7 +17,7 @@ defmodule PhoenixEtsCache.PlugTest do
 
   test "return conn if not present" do
     conn = conn(:get, "/test2")
-    |> PhoenixEtsCache.Plug.call(PhoenixEtsCache.Plug.init(nil))
+    |> PlugEtsCache.Plug.call(PlugEtsCache.Plug.init(nil))
 
     assert conn.state == :unset
     assert conn.status == nil

@@ -1,5 +1,5 @@
-defmodule PhoenixEtsCache.Plug do
-  alias PhoenixEtsCache.Store
+defmodule PlugEtsCache.Plug do
+  alias PlugEtsCache.Store
   use Plug.Builder
 
   plug :lookup

@@ -1,6 +1,6 @@
 defmodule FooController do
   use Plug.Router
-  import PhoenixEtsCache.Response, only: [cache_response: 1]
+  import PlugEtsCache.Response, only: [cache_response: 1]
 
   plug :match
   plug :dispatch
@@ -13,7 +13,7 @@ defmodule FooController do
   end
 end
 
-defmodule PhoenixEtsCache.ResponseTest do
+defmodule PlugEtsCache.ResponseTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
@@ -22,7 +22,7 @@ defmodule PhoenixEtsCache.ResponseTest do
    |> Plug.Conn.fetch_query_params
    |> FooController.call(FooController)
 
-   cached_resp = PhoenixEtsCache.Store.get(conn)
+   cached_resp = PlugEtsCache.Store.get(conn)
 
    assert conn.resp_body == "Hello cache"
    assert cached_resp.value == conn.resp_body

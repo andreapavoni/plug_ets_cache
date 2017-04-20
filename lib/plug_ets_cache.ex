@@ -1,6 +1,6 @@
-defmodule PhoenixEtsCache do
+defmodule PlugEtsCache do
   @moduledoc """
-  Documentation for PhoenixEtsCache.
+  Documentation for PlugEtsCache.
   """
 
   use Application
@@ -18,11 +18,11 @@ defmodule PhoenixEtsCache do
       ])
     ]
 
-    opts = [strategy: :one_for_one, name: PhoenixEtsCache.Supervisor]
+    opts = [strategy: :one_for_one, name: PlugEtsCache]
     Supervisor.start_link(children, opts)
   end
 
   defp app_env(key, default) do
-    Application.get_env(:phoenix_ets_cache, key, default)
+    Application.get_env(:plug_ets_cache, key, default)
   end
 end

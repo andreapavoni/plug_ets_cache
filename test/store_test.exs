@@ -1,11 +1,11 @@
-defmodule PhoenixEtsCache.StoreTest do
+defmodule PlugEtsCache.StoreTest do
   use ExUnit.Case, async: true
 
   test "sets and gets values from cache" do
     conn = %Plug.Conn{request_path: "/test", query_string: ""}
 
-    PhoenixEtsCache.Store.set(conn, "text/plain", "Hello cache")
-    cache = PhoenixEtsCache.Store.get(conn)
+    PlugEtsCache.Store.set(conn, "text/plain", "Hello cache")
+    cache = PlugEtsCache.Store.get(conn)
 
     assert cache.value == "Hello cache"
     assert cache.type == "text/plain"
