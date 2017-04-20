@@ -24,6 +24,7 @@ A simple caching system based on [Plug](https://github.com/elixir-lang/plug) and
   ```
 
 ## Usage
+These are the common steps to setup `PlugEtsCache`:
 
 1. Set configuration in `config/config.exs` (the following values are defaults):
 
@@ -40,13 +41,19 @@ A simple caching system based on [Plug](https://github.com/elixir-lang/plug) and
   plug PlugEtsCache.Plug
   ```
 
-3. Call `PlugEtsCache.Response.cache_response` *after you've sent a response*:
+Now follow specific instructions below for your use case.
+
+### With Phoenix
+Because Phoenix has a more complex lifecycle when it comes to send a response, it
+has a special module for this.
+
+1. Add ` use PlugEtsCache.Phoenix`
+2. Call `cache_response` *after you've sent a response*:
 
   ```elixir
-  # example with a Phoenix controller
   defmodule MyApp.SomeController do
     use MyApp.Web, :controller
-    import PlugEtsCache.Response, only: [cache_response: 1]
+    use PlugEtsCache.Phoenix
 
     # ...
 
@@ -60,6 +67,28 @@ A simple caching system based on [Plug](https://github.com/elixir-lang/plug) and
     # ...
   end
   ```
+
+### With plain Plug
+Supposing a very simple Plug module:
+1. Import  `PlugEtsCache.Response.cache_response/1` inside your module
+2. Call `cache_response` *after you've sent a response*:
+
+```elixir
+defmodule FooController do
+  use Plug.Router
+  import PlugEtsCache.Response, only: [cache_response: 1]
+
+  plug :match
+  plug :dispatch
+
+  get "/" do
+    Plug.Conn.fetch_query_params(conn)
+    |> put_resp_content_type("text/plain")
+    |> send_resp(200, "Hello cache")
+    |> cache_response
+  end
+end
+```
 
 ## Documentation
 The docs can be found at [https://hexdocs.pm/plug_ets_cache](https://hexdocs.pm/plug_ets_cache).
