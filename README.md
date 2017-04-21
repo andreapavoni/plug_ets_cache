@@ -1,8 +1,14 @@
 # PlugEtsCache
 
-A simple caching system based on [Plug](https://github.com/elixir-lang/plug) and [ETS](http://erlang.org/doc/man/ets.html).
+A simple http response caching system based on [Plug](https://github.com/elixir-lang/plug) and [ETS](http://erlang.org/doc/man/ets.html). It easily integrates in every application that uses Plug, including a Phoenix dedicated adapter.
+
+The main use case is when the contents of your web pages don't change in real time and are served to a multitude of visitors. Even if your server response times are in order of few tens of milliseconds, caching pages into ETS (hence into RAM) would shrink times to microseconds.
+
+Cache duration can be configured with a combination of a `ttl` value and `ttl_check`. Check [con_cache](https://github.com/sasa1977/con_cache) documentation for more details on this, PlugEtsCache uses it to read/write to ETS.
 
 ## Installation
+
+The package is available in [Hex](https://hex.pm/packages/plug_ets_cache), follow these steps to install:
 
 1. Add `plug_ets_cache` to your list of dependencies in `mix.exs`:
 
