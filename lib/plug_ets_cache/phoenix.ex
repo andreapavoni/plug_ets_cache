@@ -12,11 +12,11 @@ if Code.ensure_loaded?(Phoenix.Controller) do
           view = view_module(conn)
           template = view_template(conn)
 
-          layout = case layout(conn) do
+          layout = case conn.assigns |> Map.get(:layout, false) do
             false -> false
             {layout_module, layout_template} ->
               format = layout_formats(conn) |> hd
-              {layout_module, "#{layout_template}.#{format}"}
+              {layout_module, "#{layout_template}"}
           end
 
           assigns = Map.merge(conn.assigns, %{conn: conn, layout: layout})
