@@ -6,8 +6,9 @@ defmodule PlugEtsCache.PlugTest do
     request = %Plug.Conn{request_path: "/test", query_string: ""}
     PlugEtsCache.Store.set(request, "text/plain", "Hello cache")
 
-    conn = conn(:get, "/test")
-    |> PlugEtsCache.Plug.call(PlugEtsCache.Plug.init(nil))
+    conn =
+      conn(:get, "/test")
+      |> PlugEtsCache.Plug.call(PlugEtsCache.Plug.init(nil))
 
     assert conn.resp_body == "Hello cache"
     assert {"content-type", "text/plain; charset=utf-8"} in conn.resp_headers
@@ -16,8 +17,9 @@ defmodule PlugEtsCache.PlugTest do
   end
 
   test "return conn if not present" do
-    conn = conn(:get, "/test2")
-    |> PlugEtsCache.Plug.call(PlugEtsCache.Plug.init(nil))
+    conn =
+      conn(:get, "/test2")
+      |> PlugEtsCache.Plug.call(PlugEtsCache.Plug.init(nil))
 
     assert conn.state == :unset
     assert conn.status == nil

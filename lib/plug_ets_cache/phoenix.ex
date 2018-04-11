@@ -5,19 +5,23 @@ if Code.ensure_loaded?(Phoenix.Controller) do
         import Phoenix.View, only: [render_to_string: 3]
 
         def cache_response(conn) do
-          content_type = conn
-          |> Plug.Conn.get_resp_header("content-type")
-          |> hd
+          content_type =
+            conn
+            |> Plug.Conn.get_resp_header("content-type")
+            |> hd
 
           view = view_module(conn)
           template = view_template(conn)
 
-          layout = case layout(conn) do
-            false -> false
-            {layout_module, layout_template} ->
-              format = layout_formats(conn) |> hd
-              {layout_module, "#{layout_template}.#{format}"}
-          end
+          layout =
+            case layout(conn) do
+              false ->
+                false
+
+              {layout_module, layout_template} ->
+                format = layout_formats(conn) |> hd
+                {layout_module, "#{layout_template}.#{format}"}
+            end
 
           assigns = Map.merge(conn.assigns, %{conn: conn, layout: layout})
           response = render_to_string(view, template, assigns)

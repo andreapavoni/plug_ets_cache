@@ -2,8 +2,8 @@ defmodule FooController do
   use Plug.Router
   import PlugEtsCache.Response, only: [cache_response: 1]
 
-  plug :match
-  plug :dispatch
+  plug(:match)
+  plug(:dispatch)
 
   get "/" do
     Plug.Conn.fetch_query_params(conn)
@@ -18,14 +18,15 @@ defmodule PlugEtsCache.ResponseTest do
   use Plug.Test
 
   test "caches the controller response" do
-   conn = conn(:get, "/", ["content-type": "text/plain"])
-   |> Plug.Conn.fetch_query_params
-   |> FooController.call(FooController)
+    conn =
+      conn(:get, "/", "content-type": "text/plain")
+      |> Plug.Conn.fetch_query_params()
+      |> FooController.call(FooController)
 
-   cached_resp = PlugEtsCache.Store.get(conn)
+    cached_resp = PlugEtsCache.Store.get(conn)
 
-   assert conn.resp_body == "Hello cache"
-   assert cached_resp.value == conn.resp_body
-   assert cached_resp.type == "text/plain; charset=utf-8"
- end
+    assert conn.resp_body == "Hello cache"
+    assert cached_resp.value == conn.resp_body
+    assert cached_resp.type == "text/plain; charset=utf-8"
+  end
 end

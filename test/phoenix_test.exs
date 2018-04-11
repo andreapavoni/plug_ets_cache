@@ -3,7 +3,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     use Phoenix.Controller
     use PlugEtsCache.Phoenix
 
-    plug :put_layout, false
+    plug(:put_layout, false)
 
     def index(conn, _params) do
       render(conn, "index.txt", %{value: "cache"})
@@ -11,19 +11,19 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     end
   end
 
-  defmodule FakeView, do: use Phoenix.View, root: "test/support"
+  defmodule(FakeView, do: use(Phoenix.View, root: "test/support"))
 
   defmodule PlugEtsCache.PhoenixTest do
     use ExUnit.Case, async: true
     use Plug.Test
 
     def action(controller, verb, action, headers \\ []) do
-      conn = conn(verb, "/", headers) |> Plug.Conn.fetch_query_params
+      conn = conn(verb, "/", headers) |> Plug.Conn.fetch_query_params()
       controller.call(conn, controller.init(action))
     end
 
     test "caches the controller response" do
-      conn = action(FakeController, :get, :index, ["content-type": "text/plain"])
+      conn = action(FakeController, :get, :index, "content-type": "text/plain")
       cached_resp = PlugEtsCache.Store.get(conn)
 
       assert conn.resp_body == "Hello cache\n"
