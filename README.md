@@ -63,10 +63,10 @@ has a special module for this.
 
     # ...
 
-    def index(conn, params) do
+    def index(conn, _params) do
       # ...
       conn
-      |> render "index.html"
+      |> render("index.html")
       |> cache_response
     end
 
