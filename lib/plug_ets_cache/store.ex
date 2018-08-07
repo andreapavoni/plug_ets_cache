@@ -24,7 +24,19 @@ defmodule PlugEtsCache.Store do
   Stores `conn` response data in the cache.
   """
   def set(%Plug.Conn{} = conn, type, value) when is_binary(value) do
-    ConCache.put(db_name(), key(conn), %{type: type, value: value})
+    set(conn, type, value, nil)
+  end
+
+  @doc """
+  Stores `conn` response data in the cache with specified ttl.
+  """
+  def set(%Plug.Conn{} = conn, type, value, ttl) when is_binary(value) do
+    item = case ttl do
+      nil -> %{type: type, value: value}
+      _else -> %ConCache.Item{value: %{type: type, value: value}, ttl: ttl}
+    end
+
+    ConCache.put(db_name(), key(conn), item)
     conn
   end
 

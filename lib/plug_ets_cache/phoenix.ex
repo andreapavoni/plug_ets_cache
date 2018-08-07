@@ -5,6 +5,10 @@ if Code.ensure_loaded?(Phoenix.Controller) do
         import Phoenix.View, only: [render_to_string: 3]
 
         def cache_response(conn) do
+          cache_response(conn, nil)
+        end
+
+        def cache_response(conn, ttl) do
           content_type =
             conn
             |> Plug.Conn.get_resp_header("content-type")
@@ -26,7 +30,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
           assigns = Map.merge(conn.assigns, %{conn: conn, layout: layout})
           response = render_to_string(view, template, assigns)
 
-          PlugEtsCache.Store.set(conn, content_type, response)
+          PlugEtsCache.Store.set(conn, content_type, response, ttl)
           conn
         end
       end
