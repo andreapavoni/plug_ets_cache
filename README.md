@@ -108,7 +108,6 @@ response. Examples:
 
 ```elixir
 cache_response(conn, :timer.hours(1))
-cache_response(conn, :infinity)
 ```
 
 ## Documentation
