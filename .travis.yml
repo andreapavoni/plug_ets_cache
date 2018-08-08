@@ -5,7 +5,15 @@ elixir:
   - '1.6'
   - '1.7'
 otp_release:
-  - '18.2'
+  - '18.3'
   - '19.3'
   - '20.3'
   - '21.0'
+  
+matrix:
+  exclude:
+    elixir:
+      - 1.4
+      - 1.5
+    otp_release:
+      - 21.0
