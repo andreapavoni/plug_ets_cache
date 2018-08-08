@@ -1,5 +1,7 @@
 # PlugEtsCache
 
+[![Build Status](https://travis-ci.org/andreapavoni/plug_ets_cache.svg?branch=master)](https://travis-ci.org/andreapavoni/plug_ets_cache)
+
 A simple http response caching system based on [Plug](https://github.com/elixir-lang/plug) and [ETS](http://erlang.org/doc/man/ets.html). It easily integrates in every application that uses Plug, including a Phoenix dedicated adapter.
 
 The main use case is when the contents of your web pages don't change in real time and are served to a multitude of visitors. Even if your server response times are in order of few tens of milliseconds, caching pages into ETS (hence into RAM) would shrink times to microseconds.
