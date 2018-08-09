@@ -30,6 +30,7 @@ The package is available in [Hex](https://hex.pm/packages/plug_ets_cache), follo
   ```
 
 ## Usage
+
 These are the common steps to setup `PlugEtsCache`:
 
 1. Set configuration in `config/config.exs` (the following values are defaults):
@@ -50,6 +51,7 @@ These are the common steps to setup `PlugEtsCache`:
 Now follow specific instructions below for your use case.
 
 ### With Phoenix
+
 Because Phoenix has a more complex lifecycle when it comes to send a response, it
 has a special module for this.
 
@@ -75,7 +77,9 @@ has a special module for this.
   ```
 
 ### With plain Plug
+
 Supposing a very simple Plug module:
+
 1. Import  `PlugEtsCache.Response.cache_response/1` inside your module
 2. Call `cache_response` *after you've sent a response*:
 
@@ -96,13 +100,23 @@ defmodule FooController do
 end
 ```
 
+### Setting TTL
+
+`cache_response/1` will adhere to the `ttl` value in the config, but
+you can instead use `cache_response/2` to specify a custom `ttl` for each
+response. Examples:
+
+```elixir
+cache_response(conn, :timer.hours(1))
+```
+
 ## Documentation
+
 The docs can be found at [https://hexdocs.pm/plug_ets_cache](https://hexdocs.pm/plug_ets_cache).
 
 ## TODO
 
 * add more detailed docs
-* configure `ttl` on specific cached responses
 
 ## Contributing
 
