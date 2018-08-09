@@ -15,16 +15,13 @@ defmodule PlugEtsCache.Response do
       end
   """
 
-  def cache_response(%Plug.Conn{resp_body: nil, state: :unset} = conn), do: conn
+  def cache_response(%Plug.Conn{state: :unset} = conn), do: conn
 
-  def cache_response(%Plug.Conn{resp_body: body, state: :sent} = conn) do
-    cache_response(conn, nil)
-  end
+  def cache_response(%Plug.Conn{state: :sent} = conn), do: cache_response(conn, nil)
 
-  def cache_response(%Plug.Conn{resp_body: nil, state: :unset} = conn, _ttl), do: conn
+  def cache_response(%Plug.Conn{state: :unset} = conn, _ttl), do: conn
 
-  def cache_response(%Plug.Conn{resp_body: body, state: :sent, status: status} = conn, ttl)
-      when status in 200..299 do
+  def cache_response(%Plug.Conn{state: :sent, resp_body: body, status: status} = conn, ttl) when status in 200..299 do
     content_type =
       conn
       |> Plug.Conn.get_resp_header("content-type")
