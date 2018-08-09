@@ -17,7 +17,7 @@ The package is available in [Hex](https://hex.pm/packages/plug_ets_cache), follo
   ```elixir
   def deps do
     # Get from hex
-    [{:plug_ets_cache, "~> 0.2.0"}]
+    [{:plug_ets_cache, "~> 0.3.0"}]
     # Or use the latest from master
     [{:plug_ets_cache, github: "andreapavoni/plug_ets_cache"}]
   end
