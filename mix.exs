@@ -31,7 +31,7 @@ defmodule PlugEtsCache.Mixfile do
       {:plug, "~> 1.3"},
       {:con_cache, "~> 0.13.0"},
       {:phoenix, "~> 1.2 or ~> 1.3", optional: true},
-      {:ex_doc, "~> 0.14", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false}
     ]
   end
 
