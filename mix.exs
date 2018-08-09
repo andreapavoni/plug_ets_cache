@@ -5,7 +5,7 @@ defmodule PlugEtsCache.Mixfile do
     [
       app: :plug_ets_cache,
       version: "0.2.0",
-      elixir: "~> 1.2",
+      elixir: "~> 1.5",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps(),
