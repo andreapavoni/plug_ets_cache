@@ -11,10 +11,10 @@ defmodule PlugEtsCache do
     children = [
       worker(ConCache, [
         [
-          ttl_check: :timer.seconds(app_env(:ttl_check, 60)),
-          ttl: :timer.seconds(app_env(:ttl, 300))
-        ],
-        [name: app_env(:db_name, :ets_cache)]
+          name: app_env(:db_name, :ets_cache),
+          ttl_check_interval: :timer.seconds(app_env(:ttl_check, 60)),
+          global_ttl: :timer.seconds(app_env(:ttl, 300))
+        ]
       ])
     ]
 
