@@ -21,7 +21,7 @@ defmodule PlugEtsCache.Plug do
 
       result ->
         conn
-        |> put_resp_content_type(result.type)
+        |> put_resp_content_type(result.type, nil)
         |> send_resp(200, result.value)
         |> halt
     end
