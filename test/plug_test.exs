@@ -40,4 +40,23 @@ defmodule PlugEtsCache.PlugTest do
     assert conn.resp_body == nil
     refute {"content-type", "text/plain; charset=utf-8"} in conn.resp_headers
   end
+
+  test "accept cache key function in options" do
+    opts = [cache_key: &cache_key/1]
+    request = %Plug.Conn{request_path: "/optiontest", query_string: "foo=bar"}
+    PlugEtsCache.Store.set(request, "text/plain; charset=utf-8", "cached response", opts)
+
+    conn = :get
+    |> conn("/optiontest?foo=bar")
+    |> PlugEtsCache.Plug.call(PlugEtsCache.Plug.init(opts))
+
+    assert conn.resp_body ==  "cached response"
+    assert {"content-type", "text/plain; charset=utf-8"} in conn.resp_headers
+    assert conn.state == :sent
+    assert conn.status == 200
+  end
+
+  defp cache_key(conn) do
+    conn.query_string
+  end
 end
