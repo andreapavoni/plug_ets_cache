@@ -10,12 +10,17 @@ defmodule PlugEtsCache.Plug do
   """
 
   alias PlugEtsCache.Store
-  use Plug.Builder
+  import Plug.Conn
 
-  plug(:lookup)
 
-  def lookup(conn, _opts) do
-    case Store.get(conn) do
+  def init(opts) when is_list(opts) do
+    opts
+  end
+
+  def init(_), do: []
+
+  def call(conn, opts) do
+    case Store.get(conn, opts) do
       nil ->
         conn
 

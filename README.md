@@ -112,6 +112,19 @@ response. Examples:
 cache_response(conn, :timer.hours(1))
 ```
 
+```elixir
+cache_response(conn, ttl: :timer.minutes(45))
+```
+
+### Using a custom cache key
+
+If you need greater control over the key used to cache the request you can use a custom function to build the cache key.
+The function needs to accept one argument, the `Plug.Conn` struct, and return the key.
+
+```elixir
+cache_response(conn, [cache_key: fn conn -> conn.request_path end, ttl: :timer.minutes(10)])
+```
+
 ## Documentation
 
 The docs can be found at [https://hexdocs.pm/plug_ets_cache](https://hexdocs.pm/plug_ets_cache).
